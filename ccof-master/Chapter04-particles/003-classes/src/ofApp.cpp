@@ -7,10 +7,10 @@ public:
     ofPoint vel;
     ofColor color;
     float radius;
-    float born;
+    float born; //set a value when the particle is born
 };
 
-vector<Particle> particles;
+vector<Particle> particles; //set an array
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -25,14 +25,14 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    for(int i=0; i<particles.size(); i++)
+    for(int i=0; i<particles.size(); i++) // For everyone
     {
-        particles[i].pos += particles[i].vel;
+        particles[i].pos += particles[i].vel; //add value of velocity to the particles, par = par + vel, because its loop so keep adding values.
         
         // bounce off walls
         if(particles[i].pos.x > ofGetWidth()-particles[i].radius) {
-            particles[i].pos.x = ofGetWidth()-particles[i].radius;
-            particles[i].vel.x *= -1;
+            particles[i].pos.x = ofGetWidth()-particles[i].radius; //change position back to the edge point no matter how big the value of x is.
+            particles[i].vel.x *= -1; //let the velocity increment to the negative direction
         }
         if(particles[i].pos.x < particles[i].radius) {
             particles[i].pos.x = particles[i].radius;
@@ -47,18 +47,22 @@ void ofApp::update(){
             particles[i].vel.y *= -1;
         }
         
-        float age = ofGetElapsedTimef() - particles[i].born;
-        particles[i].color.a = ofMap(age, 0, 5, 255, 0);
+        //change opacity with time passed
+        float age = ofGetElapsedTimef() - particles[i].born; //ofGetElapesdTimef = get the time period that has passed - when it is born
+        particles[i].color.a = ofMap(age, 0, 5, 255, 0); // alpha/opacity changes with the time
         
+        //Erase the i particles when its alpha <10
         if(particles[i].color.a < 10)
         {
-            particles.erase( particles.begin() + i );
+            particles.erase(particles.begin() + i ); // erase the no. of i elements in the vector
+            
         }
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    //draw balls out of each particles
     for(int i=0; i<particles.size(); i++)
     {
         ofSetColor(particles[i].color);

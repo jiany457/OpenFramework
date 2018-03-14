@@ -13,9 +13,9 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-    int sides = 24;
+    int sides = 6;
     float radius = 200;
-    bool dip=true;
+//    bool dip=true;
     int x, y;
     float starishness = 2;
     
@@ -24,17 +24,17 @@ void ofApp::draw(){
     for(int i=0; i<360; i+=(360/sides))
     {
         float r;
-        if(dip) {
-            r = radius-(radius/starishness);
-        } else {
+//        if(dip) {
+//            r = radius-(radius/starishness);
+//        } else {
             r = radius;
-        }
+//        }
         
         x = r * cos(ofDegToRad(i)) + (ofGetWidth()/2.0);
         y = r * sin(ofDegToRad(i)) + (ofGetHeight()/2.0);
         
         ofVertex(x, y);
-        dip = !dip;
+//        dip = !dip;
     }
 
     ofEndShape();
